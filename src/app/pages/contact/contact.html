@@ -1,3 +1,86 @@
-<h1>Contactanos</h1>
+<div class="max-w-5xl mx-auto p-6 lg:p-10">
+  <h1 class="text-5xl font-extrabold text-gray-900 text-center mb-12">Contáctanos</h1>
 
-<img src="/img/contacto.jpg" alt="Contacto">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+    <div class="bg-white p-8 shadow-2xl rounded-xl">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800">Envíanos un mensaje</h2>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        
+        <div>
+          <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo <span class="text-red-500">*</span></label>
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            class="mt-1 block w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 transition duration-150"
+            [ngClass]="{'border-red-500 ring-1 ring-red-500': formControls['nombre'].invalid && formControls['nombre'].touched}"
+          >
+          <div *ngIf="formControls['nombre'].invalid && formControls['nombre'].touched" class="text-red-500 text-xs mt-1">
+            <p *ngIf="formControls['nombre'].errors?.['required']">El nombre es obligatorio.</p>
+            <p *ngIf="formControls['nombre'].errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</p>
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico <span class="text-red-500">*</span></label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="mt-1 block w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 transition duration-150"
+            [ngClass]="{'border-red-500 ring-1 ring-red-500': formControls['email'].invalid && formControls['email'].touched}"
+          >
+          <div *ngIf="formControls['email'].invalid && formControls['email'].touched" class="text-red-500 text-xs mt-1">
+            <p *ngIf="formControls['email'].errors?.['required']">El email es obligatorio.</p>
+            <p *ngIf="formControls['email'].errors?.['email']">Debe ser un email válido.</p>
+          </div>
+        </div>
+
+        <div>
+          <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono (Solo dígitos)</label>
+          <input
+            id="telefono"
+            type="tel"
+            formControlName="telefono"
+            class="mt-1 block w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 transition duration-150"
+            [ngClass]="{'border-red-500 ring-1 ring-red-500': formControls['telefono'].invalid && formControls['telefono'].touched}"
+          >
+          <div *ngIf="formControls['telefono'].invalid && formControls['telefono'].touched" class="text-red-500 text-xs mt-1">
+            <p *ngIf="formControls['telefono'].errors?.['pattern']">Solo se permiten dígitos numéricos.</p>
+          </div>
+        </div>
+
+        <div>
+          <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">Mensaje <span class="text-red-500">*</span></label>
+          <textarea
+            id="mensaje"
+            rows="5"
+            formControlName="mensaje"
+            class="mt-1 block w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 transition duration-150"
+            [ngClass]="{'border-red-500 ring-1 ring-red-500': formControls['mensaje'].invalid && formControls['mensaje'].touched}"
+          ></textarea>
+          <div *ngIf="formControls['mensaje'].invalid && formControls['mensaje'].touched" class="text-red-500 text-xs mt-1">
+            <p *ngIf="formControls['mensaje'].errors?.['required']">El mensaje es obligatorio.</p>
+            <p *ngIf="formControls['mensaje'].errors?.['minlength']">El mensaje debe tener al menos 10 caracteres.</p>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            [disabled]="contactForm.invalid"
+            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-lg font-medium text-white bg-red-600 hover:bg-red-700 transition duration-200"
+            [ngClass]="{'opacity-50 cursor-not-allowed': contactForm.invalid}"
+          >
+            Enviar Mensaje
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="hidden lg:block lg:h-full">
+      <img src="/img/contacto.jpg" alt="Contacto" class="rounded-xl shadow-2xl object-cover w-full h-full">
+    </div>
+  </div>
+</div>
