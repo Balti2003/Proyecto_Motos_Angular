@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Product, ProductService } from '../../services/products';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CommonModule, RouterLink, CurrencyPipe],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-detail.html',
-  styleUrl: './product-detail.css',
+  /* styleUrl: './product-detail.css', */
 })
 export class ProductDetail implements OnInit{
   producto: Product | undefined;
