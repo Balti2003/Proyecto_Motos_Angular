@@ -57,6 +57,15 @@ export class Products implements OnInit {
     this.applyFilters();
   }
 
+  //Método para resetear todos los filtros
+  resetFilters(): void {
+    this.searchTerm = '';
+    this.selectedBrand = '';
+    this.selectedCategory = '';
+    
+    this.applyFilters();
+  }
+
   // Lógica central de filtrado que combina todos los criterios
   private applyFilters(): void {
     let filtered = this.allProducts;
