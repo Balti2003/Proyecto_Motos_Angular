@@ -3,42 +3,51 @@
 
   <img src="/img/banner1.jpg" alt="Moto" class="rounded-xl shadow-2xl mb-10 w-full h-auto max-h-96 object-cover">
 
-  <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+    
     <input
         type="text"
         placeholder="Buscar por nombre o descripción..."
-        class="flex-1 p-3 border border-gray-300 rounded-lg shadow-md focus:ring-red-500 focus:border-red-500 transition duration-150"
+        class="p-3 border border-gray-300 rounded-lg shadow-md focus:ring-red-500 focus:border-red-500 transition duration-150"
         (input)="onSearch($event)"
     >
+    
     <select
         class="p-3 border border-gray-300 rounded-lg shadow-md focus:ring-red-500 focus:border-red-500 transition duration-150 bg-white"
-        (change)="onFilterChange($event)"
+        (change)="onBrandChange($event)"
     >
-        <option value="">Filtrar por Marca (TODO)</option>
-        <option value="honda">Honda</option>
-        <option value="kawasaky">Kawasaky</option>
-        <option value="suzuki">Suzuki</option>
-        <option value="yamaha">Yamaha</option>
-        <option value="triumph">Triumph</option>
-        <option value="bmw">Bmw</option>
-        <option value="harley">Harley-Davidson</option>
-        <option value="ducati">Ducati</option>
-        <option value="ktm">Ktm</option>
-        <option value="royal">Royal</option>
-        <option value="aprilia">Aprilia</option>
+        <option value="">Todas las Marcas</option>
+        @for(marca of availableBrands; track marca) {
+            <option [value]="marca">{{ marca }}</option>
+        }
+    </select>
+
+    <select
+        class="p-3 border border-gray-300 rounded-lg shadow-md focus:ring-red-500 focus:border-red-500 transition duration-150 bg-white"
+        (change)="onCategoryChange($event)"
+    >
+        <option value="">Todas las Categorías</option>
+        @for(categoria of availableCategories; track categoria) {
+            <option [value]="categoria">{{ categoria }}</option>
+        }
     </select>
   </div>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-    @for(producto of productos; track producto.id) {
+    @for(producto of productos(); track producto.id) { 
         <article routerLink="/productos/{{producto.id}}" class="bg-white shadow-xl rounded-xl overflow-hidden cursor-pointer transition duration-300 transform hover:scale-[1.03] hover:shadow-2xl border border-gray-200">
             <img [src]="producto.imagen" [alt]="producto.nombre" class="w-full h-48 object-cover">
             <div class="p-4">
                 <h3 class="text-xl font-semibold text-gray-800 truncate mb-1">{{producto.nombre}}</h3>
                 <p class="text-sm text-gray-500 h-10 overflow-hidden mb-3">{{producto.descripcion}}</p>
+                <p class="text-xs text-gray-400 mb-2">{{ producto.marca }} - {{ producto.categoria }}</p>
                 <strong class="text-lg font-bold text-red-600">${{producto.precio}}</strong>
             </div>
         </article>
+    } @empty {
+        <div class="col-span-full text-center p-10 bg-gray-100 rounded-lg">
+            <p class="text-xl text-gray-700">No se encontraron motos que coincidan con tu búsqueda.</p>
+        </div>
     }
   </section>
 </div>
