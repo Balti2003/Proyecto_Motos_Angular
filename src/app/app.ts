@@ -7,6 +7,7 @@ import { Footer } from './components/footer/footer';
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
+  host: { 'class': 'flex flex-col min-h-screen' },
   styleUrl: './app.css'
 })
 export class App {
